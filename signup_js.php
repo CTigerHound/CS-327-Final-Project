@@ -30,14 +30,16 @@
 </head>
 <body>
  
-    <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" id="myform"/>
+
+    <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" id="myform">
     First Name:  <input type="text" name="firstname"/>
 	<br><br>
     Last Name:  <input type="text" name="lastname"/>
 	<br><br>
     User ID:  <input type="text" name="userid"/>
 	<br><br>
-    Password: <input type="password" name="password1" id="pwd1"/>
+
+    Password: <input type="password" name="password" id="pwd1"/>
     <br><br>
     Retype Password: <input type="password" name="password2" id="pwd2"/>
     <br><br>
@@ -52,7 +54,7 @@
     $servername = "localhost";
     $username = "root";
     $password = "";
-    $dbname = "vrg";
+    $dbname = "test";
 
     // Create connection
     $conn = new mysqli($servername, $username, $password, $dbname);
@@ -74,7 +76,8 @@
 	}
 	if($userid!=""){
         //Create the SQL query
-        $sql = "select username from user";
+
+        $sql = "select username from Users";
         $sql = $sql . " where username = '$userid'";
         
 	//Run the query
@@ -82,14 +85,21 @@
     
     if ($result->num_rows == 0) 
 	{
-        $sql2 = "insert into user(firstname,lastname,username,password,is_admin) values(";
-        $sql2 = $sql2 . "'$fname','$lname','$userid','$password',0)";
+
+        $sql2 = "insert into Users(USERID,DOB,SEX,Fname,Lname, Password) values(";
+        $sql2 = $sql2 . "'$DOB,$fname','$lname','$userid','$password',0)";
 	    $result = $conn->query($sql2);
         
         /*if ($result->num_rows > 0) 
             echo "Created User";
         else
             echo "Something went wrong!";*/
+
+        if ($result) {
+            echo "User created successfully!";
+        } else {
+            echo "Error: " . $conn->error;
+        }
             
         echo "<br><a href='index.php'>Login</a>";
 
