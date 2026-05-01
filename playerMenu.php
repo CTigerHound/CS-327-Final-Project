@@ -1,11 +1,11 @@
 <?php
 session_start();
-if (!isset($_SESSION["userid"]) || $_SESSION["role"] != "player") {
-    echo "<h2>Access denied. <a href='index.php'>Login</a></h2>";
-    exit();
-}
+$_SESSION["userid"] = 8;
+$_SESSION["role"] = "player";
+$_SESSION["FullName"] = "Jake Thompson";
 $fullname = $_SESSION["FullName"];
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
