@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang = 'eng'>
 <head>
     <title>Create New User</title>
     <style>
@@ -30,18 +30,20 @@
 </head>
 <body>
  
-
-    <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" id="myform">
-    First Name:  <input type="text" name="firstname"/>
+    <form method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" id="myform">
+    First Name:  <input type="text" name="Fname"/>
 	<br><br>
-    Last Name:  <input type="text" name="lastname"/>
+    Last Name:  <input type="text" name="Lname"/>
 	<br><br>
-    User ID:  <input type="text" name="userid"/>
+    User ID:  <input type="text" name="USERID"/>
 	<br><br>
-
-    Password: <input type="password" name="password" id="pwd1"/>
+    DOB: <input type="date" name="DOB"/>
     <br><br>
-    Retype Password: <input type="password" name="password2" id="pwd2"/>
+    Sex: <input type="text" name="Sex"/>
+    <br><br>
+    Password: <input type="Password" name="Password" id="pwd1"/>
+    <br><br>
+    Retype Password: <input type="Password" name="Password2" id="pwd2"/>
     <br><br>
     <input type="button" value="Create User" onclick="checkpasswords()"/>
     &nbsp;&nbsp;&nbsp;&nbsp;
@@ -51,14 +53,18 @@
 </form>
 
 <?php
+    error_reporting(E_ALL);
+    ini_set('display_errors', 1);
     $servername = "localhost";
     $username = "root";
-    $password = "";
+    $dbPassword = "";
     $dbname = "test";
 
     // Create connection
-    $conn = new mysqli($servername, $username, $password, $dbname);
+    $conn = new mysqli($servername, $username, $dbPassword, $dbname);
+    mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
     $sql="";
+
     // Check connection
     if ($conn->connect_error) 
     {
@@ -66,7 +72,13 @@
     }
     else
     {
-        //echo "Connected successfully<br>";
+        $Fname = isset($_POST["Fname"]) ? $_POST["Fname"] : "";
+        $Lname = isset($_POST["Lname"]) ? $_POST["Lname"] : "";
+        $USERID = isset($_POST["USERID"]) ? $_POST["USERID"] : "";
+        $userPassword = isset($_POST["Password"]) ? $_POST["Password"] : "";
+        $DOB = isset($_POST["DOB"]) ? $_POST["DOB"] : "";
+        $Sex = isset($_POST["Sex"]) ? $_POST["Sex"] : "";
+    }
 
         $fname = isset($_POST["firstname"]) ? $_POST["firstname"] : "";
         $lname = isset($_POST["lastname"]) ? $_POST["lastname"] : "";
@@ -99,19 +111,44 @@
             echo "User created successfully!";
         } else {
             echo "Error: " . $conn->error;
+    if (isset($_POST["Password"], $_POST["Password2"])) {
+        if ($_POST["Password"] != $_POST["Password2"]) {
+            die("Passwords do not match!");
         }
-            
-        echo "<br><a href='index.php'>Login</a>";
+    }
 
-    } 
-    else
-	{
-        echo "Sorry! That userid already exists!";
-        echo "<br><a href='signup.php'>Try again</a>";
+    if ($_SERVER["REQUEST_METHOD"] == "POST" && $USERID != "") {
+
+        $sql = "select USERID from Users where USERID = '$USERID'";
+
+        $result = $conn->query($sql);
+
+        if (!$result) {
+            die("SQL Error: " . $conn->error);
+        }
+
+        if ($result->num_rows == 0) 
+        {
+            $sql2 = "INSERT INTO Users (USERID, DOB, Sex, Fname, Lname, Password)
+            VALUES ('$USERID', '$DOB', '$Sex', '$Fname', '$Lname', '$userPassword')";
+
+            $result2 = $conn->query($sql2);
+
+            if (!$result2) {
+                die("Insert failed: " . $conn->error);
+            } else {
+                echo "User created successfully!";
+                echo "<br><a href='index.php'>Login</a>";
+            }
+        }
+        else
+        {
+            echo "Sorry! That userid already exists!";
+            echo "<br><a href='signup.php'>Try again</a>";
+        }
     }
-    }
+
     $conn->close();
-    
 ?>
 </body>
 </html>
