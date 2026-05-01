@@ -1,87 +1,104 @@
 <html lang="en">
 <head>
-<title>Sign up for accessing the View Ridge Gallery</title>
+<title>Create a Team</title>
 </head>
 
 <body>
     <?php
-    if(isset($_POST["firstname"]) && isset($_POST["lastname"]) &&
-            isset($_POST["userid"]) && isset($_POST["password"]) &&
-                                           $_POST["firstname"]!="")
-    { 
-        $servername="localhost";
-        $username="root";
-        $password="";
-        $dbname="vrg";
-        
-        // Create connection
-        $conn = new mysqli($servername, $username, $password, $dbname);
-        if($conn->connect_error)
+    session_start();
+    if(isset($_SESSION["userid"]))
+	{
+        if(isset($_POST["Name"]) && isset($_POST["TeamID"]) &&
+                isset($_POST["SprtName"]) && isset($_POST["FrstPlayer"]) && isset($_POST["HeadCoach"]) && isset($_POST["Sex"])
+                && isset($_POST["Min_age"]) && isset($_POST["Max_age"]) &&
+                                            $_POST["TeamID"]!="")
         {
-                die("Connection failed: ".$conn->connect_error);
-        }
-        else
-        {   //Read the form data
-            $firstname = $_POST["firstname"];
-            $lastname = $_POST["lastname"]; 
-            $userid = $_POST["userid"];
-            $password = $_POST["password"];
-                
-            //Generate query
-            $sql = "select username";
-            $sql = $sql. " from user where username='".$userid."'";
-                
-            //Run query
-            $result = $conn->query($sql);
-            if($result->num_rows>0)
+            $servername="localhost";
+            $username="root";
+            $password="";
+            $dbname="sportlfc";
+            
+            // Create connection
+            $conn = new mysqli($servername, $username, $password, $dbname);
+            if($conn->connect_error)
             {
-                echo("<h4>Username ".$userid." already exists! Enter something else.<h4>");
-                 echo("<h4><a href=\"signup.php\">Try again!</a>.<h4>");
-
+                    die("Connection failed: ".$conn->connect_error);
             }
             else
-            {
-                //Generate second query
-                $sql = "insert into user(firstname, lastname, username, is_admin, password)";
-                $sql = $sql. " values ('".$firstname."', '".$lastname."', '".$userid."', 0, '".$password."')";
-                
+            {   //Read the form data
+                $name = $_POST["Name"];
+                $teamid = $_POST["TeamID"];
+                $sport = $_POST["SprtName"];
+                $player = $_POST["FrstPlayer"];
+                $coach = $_POST["HeadCoach"];
+                $sex = $_POST["Sex"];
+                $minage = $_POST["Min_age"];
+                $maxage = $_POST["Max_age"];
+                    
+                //Generate query
+                $sql = "select TeamID";
+                $sql = $sql. " from team where TeamID ='".$teamid."' or Name ='".$name."'";
+                    
                 //Run query
                 $result = $conn->query($sql);
-                
-                if($result)
-                {
-                    echo("<h4>Username ".$userid." successfully created.<h4>");
-                    echo("<br> Go to <a href=\"index.php\">login page</a>.");
+                if($result->num_rows>0)
+                {  #TODO: MORE STUFFS! CHECKS! DEFAULT VALUES!
+                    echo("<h4>ID number ".$teamid." or Team Name ".$name." already exists! Enter something else.<h4>");
+                    echo("<h4><a href=\"createTeams.php\">Try again!</a>.<h4>");
                 }
                 else
                 {
-                    echo("<h4>Some error occurred! <a href=\"signup.php\">Try again!</a>.<h4>");
+                    //Generate second query
+                    $sql = "insert into team(TeamID, SprtName, FrstPlayer, HeadCoach, Name, Sex, Min_age, Max_age)";
+                    $sql = $sql. " values ('".$teamid."', '".$sport."', '".$player."', '".$coach."', '".$name."', '".$sex."', '".$minage."', '".$maxage."')";
+                    
+                    //Run query
+                    $result = $conn->query($sql);
+                    
+                    if($result)
+                    {
+                        echo("<h4>Team ".$name." successfully created.<h4>");
+                        echo("<br> Return to <a href=\"searchTeams.php\">Team Management</a>.");
+                    }
+                    else
+                    {
+                        echo("<h4>Some error occurred! <a href=\"createTeams.php\">Try again!</a>.<h4>");
+                    }
                 }
             }
         }
-    }
-    else
-    {?>
-    <h1>Create your profile for the View Ridge Gallery!</h1>
-    <br>
-    <form action="signup.php" method="post">
-        First Name*: <input type="text" name="firstname"><br>
-        Last Name*: <input type="text" name="lastname"><br>
-        Username*: <input type="text" name="userid"><br>
-        Password*: <input type="password" name="password"><br>
-        Re-type Password*: <input type="password" name="password2"><br>
+        else
+        {?>
+        <h1>Create a new team</h1>
         <br>
-        <input type="submit"> &nbsp;&nbsp;
-        <input type="reset">
-    
-    </form>
-    <?php
-    }
-    ?>
+        <form action="createTeams.php" method="post">
+            Team ID*: <input type="text" name="TeamID"><br>
+            Team Name*: <input type="text" name="Name"><br>
+            Sport*: <input type="text" name="SprtName"><br>
+            Sex: <input type="text" name="Sex"><br>
+            Minimum age: <input type="text" name="Min_age"><br>
+            Maximum age: <input type="text" name="Max_age"><br>
+            First Player*: <input type="text" name="FrstPlayer"><br>
+            Head Coach*: <input type="text" name="HeadCoach"><br>
+            <br>
+            <input type="submit"> &nbsp;&nbsp;
+            <input type="reset">
+        
+        </form>
+
     <br>
     <br>
     <hr>
-    Already have a username? Sign in <a href="index.php">here</a>.
+    Return to functions page <a href="index.php">here</a>.
+        <?php
+        }
+    } else
+	{
+		echo "You shouldn't be on this page!";
+		echo "<br>";
+		echo "<a href=\"index.php\">Log in</a> and try again.";
+	}
+        ?>
 </body>
 
 </html>
