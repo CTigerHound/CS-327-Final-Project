@@ -16,7 +16,7 @@
             $servername="localhost";
             $username="root";
             $password="";
-            $dbname="project_del_2";
+            $dbname="sportlfc";
             
             // Create connection
             $conn = new mysqli($servername, $username, $password, $dbname);

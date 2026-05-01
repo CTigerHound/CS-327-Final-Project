@@ -5,15 +5,19 @@
     <style>
         table, th, td, tr {
             border: solid grey;
-			border-collapse:collapse;
+			border-collapse:collapse; #
         }
+		
     </style>
 	
 	<script>
 			function magic()
 			{
 				document.getElementById("submitButton").type = "submit";
-				//document.getElementById("myForm").submit();				
+				//document.getElementById("myForm").submit();		
+				
+				// PLAYERS: view all players, print a list of players in most teams, find average fee per player
+				// Coaches: view all coaches, assign coaches to teams, print list of coaches coaching most teams
 			}
 	</script>
 </head>
@@ -37,7 +41,7 @@
     $servername = "localhost";
     $username = "root";
     $password = "";
-    $dbname = "project_del_2";
+    $dbname = "sportlfc";
 
     // Create connection
     $conn = new mysqli($servername, $username, $password, $dbname);
