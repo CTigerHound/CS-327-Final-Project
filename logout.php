@@ -5,7 +5,7 @@
     <body>
         <?php
                 session_start();
-                if (isset($_SESSION["userid"]) && $_SESSION["userid"]!="")
+                if (isset($_SESSION["USERID"]) && $_SESSION["USERID"]!="")
                 {
                     $fullname = $_SESSION["FullName"];
                     echo $fullname." logged out successfully!";

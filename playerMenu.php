@@ -6,6 +6,7 @@ if (!isset($_SESSION["userid"]) || $_SESSION["role"] != "player") {
 }
 $fullname = $_SESSION["FullName"];
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

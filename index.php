@@ -6,9 +6,10 @@
 <h1>Welcome to Sport LFC</h1>
 <h3>Please log into the system to continue</h3>
 <form action="welcome.php" method="POST">
-    Username: <input type="text" name="username">
+
+    ID: <input type="text" name="USERID">
     <br><br>
-    Password: <input type="password" name="password">
+    Password: <input type="Password" name="Password">
     <br><br>
     Don't have an account yet? Sign up <a href="signup.php">here</a>.
     <br><br>
