@@ -58,7 +58,7 @@
     $servername = "localhost";
     $username = "root";
     $dbPassword = "";
-    $dbname = "test";
+    $dbname = "sportlfc";
 
     // Create connection
     $conn = new mysqli($servername, $username, $dbPassword, $dbname);

@@ -1,9 +1,21 @@
 <?php
 session_start();
-if (!isset($_SESSION["userid"]) || $_SESSION["role"] != "player") {
+    $menuPage = "index.php";
+
+if ($_SESSION["role"] == "admin") {
+    $menuPage = "adminMenu.php";
+}
+else if ($_SESSION["role"] == "coach") {
+    $menuPage = "coachMenu.php";
+}
+else if ($_SESSION["role"] == "player") {
+    $menuPage = "playerMenu.php";
+}
+
+if (!isset($_SESSION["USERID"]) || $_SESSION["role"] != "admin" && $_SESSION["role"] != "player") {
     echo "<h2>Access denied. <a href='index.php'>Login</a></h2>"; exit();
 }
-$playerID = $_SESSION["userid"];
+$playerID = $_SESSION["USERID"];
 $conn = new mysqli("localhost", "root", "", "sportlfc");
 if ($conn->connect_error) die("Connection failed: " . $conn->connect_error);
 $fee = 0;
@@ -39,7 +51,7 @@ $conn->close();
     </style>
 </head>
 <body>
-<div class="container">
+<d class="container">
     <h1>My Fees</h1>
     <p class="sub"><?php echo htmlspecialchars($_SESSION["FullName"]); ?></p>
     <div class="card">
@@ -58,7 +70,7 @@ $conn->close();
             <div class="team-row"><?php echo htmlspecialchars($t["TeamName"]); ?> &mdash; <?php echo $t["SprtName"]; ?></div>
         <?php endforeach; else: echo "<p style='color:#778'>Not on any teams.</p>"; endif; ?>
     </div>
-    <a class="back" href="playerMenu.php">&larr; Back to Menu</a>
-</div>
+    <a class="back" href="<?php echo $menuPage; ?>">&larr; Back to Menu</a>
+    </div>
 </body>
 </html>

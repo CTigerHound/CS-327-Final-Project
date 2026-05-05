@@ -2,11 +2,26 @@
 <head>
 <title>Create a Team</title>
 </head>
-
+<style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Georgia', serif; background: #0f1923; color: #e8e0d0; min-height: 100vh; padding: 40px 20px; }
+        .container { max-width: 800px; margin: 0 auto; }
+        h1 { font-size: 1.8rem; color: #c9a84c; margin-bottom: 30px; }
+        form { background: #1a2535; border: 1px solid #2a3a4a; border-radius: 6px; padding: 24px; margin-bottom: 30px; }
+        label { display: block; font-size: 0.85rem; color: #aaa; margin-bottom: 6px; }
+        input[type=text], select { width: 100%; padding: 10px 14px; background: #0f1923; border: 1px solid #2a3a4a; border-radius: 4px; color: #e8e0d0; font-size: 0.95rem; margin-bottom: 16px; }
+        .btn { background: #c9a84c; color: #0f1923; border: none; padding: 10px 28px; border-radius: 4px; font-size: 1rem; cursor: pointer; font-weight: bold; }
+        table { width: 100%; border-collapse: collapse; background: #1a2535; border-radius: 6px; overflow: hidden; }
+        th { background: #c9a84c; color: #0f1923; padding: 12px 14px; text-align: left; font-size: 0.8rem; text-transform: uppercase; }
+        td { padding: 12px 14px; border-bottom: 1px solid #2a3a4a; font-size: 0.9rem; }
+        tr:hover td { background: #243040; }
+        .back { display: inline-block; margin-top: 24px; color: #c9a84c; text-decoration: none; }
+        .none { color: #778; padding: 20px; text-align: center; }
+    </style>
 <body>
     <?php
     session_start();
-    if(isset($_SESSION["userid"]))
+    if(isset($_SESSION["USERID"]))
 	{
         if(isset($_POST["Name"]) && isset($_POST["TeamID"]) &&
                 isset($_POST["SprtName"]) && isset($_POST["FrstPlayer"]) && isset($_POST["HeadCoach"]) && isset($_POST["Sex"])

@@ -1,6 +1,18 @@
 <?php
 session_start();
-if (!isset($_SESSION["userid"])) {
+    $menuPage = "index.php";
+
+if ($_SESSION["role"] == "admin") {
+    $menuPage = "adminMenu.php";
+}
+else if ($_SESSION["role"] == "coach") {
+    $menuPage = "coachMenu.php";
+}
+else if ($_SESSION["role"] == "player") {
+    $menuPage = "playerMenu.php";
+}
+
+if (!isset($_SESSION["USERID"])) {
     echo "<h2>Access denied. <a href='index.php'>Login</a></h2>";
     exit();
 }
@@ -82,7 +94,7 @@ $conn->close();
             <p class="none">No teams found.</p>
         <?php endif; ?>
     <?php endif; ?>
-    <a class="back" href="<?php echo $backPage; ?>">&larr; Back to Menu</a>
+    <a class="back" href="<?php echo $menuPage; ?>">&larr; Back to Menu</a>
 </div>
 </body>
 </html>

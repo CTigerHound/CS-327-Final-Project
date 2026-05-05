@@ -23,7 +23,7 @@
         $servername="localhost";
         $username="root";
         $Password="";
-        $dbname="test";
+        $dbname="sportlfc";
         
         // Create connection
         $conn = new mysqli($servername, $username, $Password, $dbname);
@@ -58,8 +58,8 @@
             else
             {
                 //Generate second query
-                $sql = "INSERT INTO Users (USERID, DOB, Sex, Fname, Lname, Password)
-                VALUES ('$USERID', '$DOB', '$Sex', '$Fname', '$Lname', '$userPassword')";
+                $sql = "INSERT INTO Users (USERID, DOB, Sex, Fname, Lname, Password, role)
+                VALUES ('$USERID', '$DOB', '$Sex', '$Fname', '$Lname', '$userPassword', 'player')";
                 //Run query
                 $result = $conn->query($sql);
                 

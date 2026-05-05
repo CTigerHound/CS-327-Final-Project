@@ -1,9 +1,9 @@
 <?php
 session_start();
-if (!isset($_SESSION["userid"]) || $_SESSION["role"] != "coach") {
+if (!isset($_SESSION["USERID"]) || $_SESSION["role"] != "coach") {
     echo "<h2>Access denied. <a href='index.php'>Login</a></h2>"; exit();
 }
-$coachID = $_SESSION["userid"];
+$coachID = $_SESSION["USERID"];
 $conn = new mysqli("localhost", "root", "", "sportlfc");
 if ($conn->connect_error) die("Connection failed: " . $conn->connect_error);
 $message = "";

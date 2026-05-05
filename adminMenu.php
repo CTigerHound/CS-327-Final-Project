@@ -1,6 +1,6 @@
 <?php
 session_start();
-if (!isset($_SESSION["USERID"]) || $_SESSION["role"] != "player") {
+if (!isset($_SESSION["USERID"]) || $_SESSION["role"] != "admin") {
     echo "<h2>Access denied. <a href='index.php'>Login</a></h2>";
     exit();
 }
@@ -27,13 +27,20 @@ $fullname = $_SESSION["FullName"];
 <body>
 <div class="container">
     <h1>Welcome, <?php echo htmlspecialchars($fullname); ?></h1>
+    make sure to add the style to all the php below
     <p class="subtitle">Player Dashboard &mdash; Sport LFC</p>
     <a class="menu-item" href="searchTeam.php">Search for a Team<span>Find teams by sport or team name</span></a>
-    <a class="menu-item" href="joinSport.php">Join a Sport<span>Register yourself in a new sport</span></a>
-    <a class="menu-item" href="orderEquipment.php">Order Equipment<span>Buy equipment required for your sport</span></a>
-    <a class="menu-item" href="viewMyTeams.php">View My Teams<span>See all teams you are currently on</span></a>
-    <a class="menu-item" href="leaveTeam.php">Leave a Team<span>Remove yourself from a team</span></a>
-    <a class="menu-item" href="viewFees.php">View My Fees<span>Check your current fee balance</span></a>
+    <a class="menu-item" href="seePlayers.php">View Players<span>View all players</span></a>
+    <a class="menu-item" href="seeCoaches.php">View Coaches<span>View all Coaches</span></a>
+
+    <a class="menu-item" href="createTeams.php">Create a team<span>Create a team to add to the roster</span></a>
+    
+    <a class="menu-item" href="assignCoach.php">Assign Coach<span>Assign a coach to a team</span></a>
+    <a class="menu-item" href="popularSports.php">Popular Sports<span>Prints a list of the most popular sports</span></a>
+    <a class="menu-item" href="playersInMostTeams.php">Players in most teams<span>Prints a list of the players in the most teams</span></a>
+    <a class="menu-item" href="coachesInMostTeams.php">Coaches in most teams<span>Prints a list of the coaches coaching the most teams</span></a>
+    <a class="menu-item" href="popularEquipment.php">Popular Equipment<span>Finds the top 10 most popular equipment</span></a>
+
     <a class="menu-item logout" href="logout.php">Logout</a>
 </div>
 </body>

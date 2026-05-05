@@ -1,6 +1,6 @@
 <?php
 session_start();
-if (!isset($_SESSION["userid"]) || $_SESSION["role"] != "coach") {
+if (!isset($_SESSION["USERID"]) || $_SESSION["role"] != "coach") {
     echo "<h2>Access denied. <a href='index.php'>Login</a></h2>";
     exit();
 }

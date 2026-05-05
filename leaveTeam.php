@@ -1,10 +1,10 @@
 <?php
 session_start();
-if (!isset($_SESSION["userid"])) {
+if (!isset($_SESSION["USERID"])) {
     echo "<h2>Access denied. <a href='index.php'>Login</a></h2>"; exit();
 }
 $role = $_SESSION["role"];
-$userID = $_SESSION["userid"];
+$userID = $_SESSION["USERID"];
 $backPage = ($role == "coach") ? "coachMenu.php" : "playerMenu.php";
 $conn = new mysqli("localhost", "root", "", "sportlfc");
 if ($conn->connect_error) die("Connection failed: " . $conn->connect_error);

@@ -1,10 +1,10 @@
 <?php
 session_start();
-if (!isset($_SESSION["userid"])) {
+if (!isset($_SESSION["USERID"])) {
     echo "<h2>Access denied. <a href='index.php'>Login</a></h2>"; exit();
 }
 $role = $_SESSION["role"];
-$userID = $_SESSION["userid"];
+$USERID = $_SESSION["USERID"];
 $backPage = ($role == "coach") ? "coachMenu.php" : "playerMenu.php";
 $conn = new mysqli("localhost", "root", "", "sportlfc");
 if ($conn->connect_error) die("Connection failed: " . $conn->connect_error);
@@ -14,13 +14,13 @@ if ($role == "player") {
             FROM Plays_In pi JOIN Team t ON pi.TeamID = t.TeamID
             LEFT JOIN Coach c ON t.HeadCoach = c.C_USERID
             LEFT JOIN Users u ON c.C_USERID = u.USERID
-            WHERE pi.PlayerID = $userID";
+            WHERE pi.PlayerID = $USERID";
 } else {
     $sql = "SELECT t.TeamID, t.Name AS TeamName, t.SprtName, co.Role, u.Fname AS PFname, u.Lname AS PLname
             FROM Coaches co JOIN Team t ON co.TeamID = t.TeamID
             LEFT JOIN Player fp ON t.FrstPlayer = fp.P_USERID
             LEFT JOIN Users u ON fp.P_USERID = u.USERID
-            WHERE co.C_USERID = $userID";
+            WHERE co.C_USERID = $USERID";
 }
 $result = $conn->query($sql);
 while ($row = $result->fetch_assoc()) $teams[] = $row;

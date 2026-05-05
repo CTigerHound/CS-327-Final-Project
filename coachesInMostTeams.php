@@ -1,6 +1,6 @@
 <?php
 session_start();
-if (!isset($_SESSION["userid"]) || $_SESSION["role"] != "admin") {
+if (!isset($_SESSION["USERID"]) || $_SESSION["role"] != "admin") {
     echo "<h2>Access denied. <a href='index.php'>Login</a></h2>"; exit();
 }
 $conn = new mysqli("localhost", "root", "", "sportlfc");
