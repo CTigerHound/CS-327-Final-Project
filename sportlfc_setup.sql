@@ -218,3 +218,9 @@ INSERT INTO Needs (Sport_name, EQID, Min_num) VALUES
 
 INSERT INTO Buys (EQID, PlayerID, QTY) VALUES
 (1,8,1),(2,8,1),(3,8,1),(4,10,1),(5,10,1),(6,12,1),(7,12,1),(9,13,1),(10,13,3),(11,14,1);
+
+alter table Users
+ADD COLUMN role VARCHAR(20) Default 'player';
+
+update users set role = 'admin' where USERID in (select A_USERID from admin);
+update users set role = 'coach' where USERID in (select C_USERID from coach);

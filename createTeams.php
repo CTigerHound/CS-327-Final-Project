@@ -21,7 +21,7 @@
 <body>
     <?php
     session_start();
-    if(isset($_SESSION["USERID"]))
+    if(isset($_SESSION["USERID"]) && $_SESSION["role"] == "admin")
 	{
         if(isset($_POST["Name"]) && isset($_POST["TeamID"]) &&
                 isset($_POST["SprtName"]) && isset($_POST["FrstPlayer"]) && isset($_POST["HeadCoach"]) && isset($_POST["Sex"])

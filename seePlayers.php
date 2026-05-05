@@ -32,7 +32,7 @@
 <body>
 <?php
 	session_start();
-    if(isset($_SESSION["USERID"]))
+    if(isset($_SESSION["USERID"]) && $_SESSION["role"] == "admin")
 	{
 ?>
 <form method="get" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" id="myForm">
