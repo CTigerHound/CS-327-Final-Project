@@ -29,7 +29,7 @@
         <?php
         
             session_start();
-            if (isset($_SESSION["USERID"]) && $_SESSION["USERID"]!="")
+            if (isset($_SESSION["USERID"]) && $_SESSION["role"] == "admin")
             {
                 $servername="localhost";
                 $username="root";
